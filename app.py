@@ -5,17 +5,9 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
 import pandas as pd
 import pickle
 
-from tensorflow.keras.losses import BinaryCrossentropy
-
-# Define a custom deserialization function
-def custom_bce(config):
-    # Remove the 'fn' key if it exists
-    if 'fn' in config['config']:
-        del config['config']['fn']
-    return BinaryCrossentropy(**config['config'])
 
 # Load the trained model
-model = tf.keras.models.load_model('model.h5',custom_objects={'BinaryCrossentropy': custom_bce})
+model = tf.keras.models.load_model('model.h5')
 
 # Load the encoders and scaler
 with open('label_encoder_gender.pkl', 'rb') as file:
